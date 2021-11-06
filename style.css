@@ -1,0 +1,72 @@
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+body {
+	background-color: #252c35;
+}
+
+.wrapper {
+	height: 75px;
+	display: grid;
+	grid-template-columns: 1fr 30%;
+	grid-auto-rows: 75px;
+	transition: height 0.15s ease;
+}
+
+.wrapper > * {
+	display: flex;
+	align-items: center;
+}
+
+.collapsed {
+	/* transform: scaleY(0); */
+	height: 0;
+}
+
+.jokeItem {
+	background-color: #425064;
+	color: aliceblue;
+	padding: 10px;
+	grid-column-start: 1;
+	grid-column-end: 3;
+	grid-row-start: 1;
+	grid-row-end: 2;
+	font-size: 1.25rem;
+	transition: transform 100ms ease-in-out;
+}
+
+.wrapper:nth-child(odd) .jokeItem {
+	background-color: #36404e;
+	transition: background-color 300ms ease-in-out;
+}
+
+.deleteItem {
+	cursor: pointer;
+	background: rgb(226, 63, 63);
+	grid-column-start: 2;
+	grid-column-end: 3;
+	grid-row-start: 1;
+	grid-row-end: 2;
+	display: flex;
+	justify-content: center;
+	width: 100%;
+	font-size: 1.25rem;
+	color: white;
+}
+
+.restoreItem {
+	cursor: pointer;
+	background: rgb(63, 226, 144);
+	grid-column-start: 2;
+	grid-column-end: 3;
+	grid-row-start: 1;
+	grid-row-end: 2;
+	display: flex;
+	justify-content: center;
+	width: 100%;
+	font-size: 1.25rem;
+	color: white;
+}
