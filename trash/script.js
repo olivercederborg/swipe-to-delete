@@ -1,6 +1,8 @@
 const main = document.querySelector('main')
 const jokeItem = document.querySelector('#jokeItem')
+const allJokeItems = document.querySelectorAll('.wrapper')
 const restoreItem = document.querySelector('#restoreItem')
+const nav = document.querySelector('nav')
 
 const deleteButtonWidth = window.screen.width * 0.3
 
@@ -16,6 +18,17 @@ let trash = deletedItemsStorage || []
 const restoredItemsStorage = JSON.parse(localStorage.getItem('restoredItems'))
 let restoredItems = restoredItemsStorage || []
 
+// Create element to delete all items
+const deleteAllElement = document.createElement('button')
+deleteAllElement.classList = 'text-white'
+deleteAllElement.innerText = 'Delete All'
+
+if (trash.length) {
+	nav.appendChild(deleteAllElement)
+	deleteAllElement.onclick = onDeleteAll
+}
+
+// Main swipe functionality
 main.addEventListener('touchstart', e => {
 	console.log('touch start')
 
@@ -51,28 +64,53 @@ main.addEventListener('touchstart', e => {
 		})
 	}
 
-	function onRestoreItem() {
-		parentElement.classList.add('animate__fadeOutLeft')
+	// Event listener for restore item
+	parentElement.querySelector('.restoreItem').onclick = onRestoreItem
+})
 
-		const userObject = {
-			id: parentElement.id,
-			name: parentElement.textContent
-		}
+// Functions
+function onRestoreItem() {
+	parentElement.classList.add('animate__fadeOutLeft')
 
-		trash = trash.filter(item => userObject.id !== item.id)
-		localStorage.setItem('deletedItems', JSON.stringify(trash))
+	const userObject = {
+		id: parentElement.id,
+		name: parentElement.textContent
+	}
 
-		restoredItems.push(userObject)
-		localStorage.setItem('restoredItems', JSON.stringify(restoredItems))
+	trash = trash.filter(item => userObject.id !== item.id)
+	localStorage.setItem('deletedItems', JSON.stringify(trash))
 
+	restoredItems.push(userObject)
+	localStorage.setItem('restoredItems', JSON.stringify(restoredItems))
+
+	setTimeout(() => {
+		parentElement.classList.add('collapsed')
+	}, 400)
+
+	setTimeout(() => {
+		parentElement.remove()
+	}, 500)
+
+	if (!trash.length) {
+		deleteAllElement.remove()
+	}
+}
+
+function onDeleteAll() {
+	trash = []
+	localStorage.setItem('deletedItems', JSON.stringify(trash))
+	allJokeItems.forEach(item => {
+		item.classList.add('animate__fadeOutLeft')
 		setTimeout(() => {
-			parentElement.classList.add('collapsed')
+			item.classList.add('collapsed')
 		}, 400)
 
 		setTimeout(() => {
-			parentElement.remove()
+			item.remove()
 		}, 500)
-	}
 
-	parentElement.querySelector('.restoreItem').onclick = onRestoreItem
-})
+		if (!trash.length) {
+			deleteAllElement.remove()
+		}
+	})
+}
