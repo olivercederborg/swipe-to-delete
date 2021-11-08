@@ -21,7 +21,7 @@ trashCounter.classList =
 trashLink.appendChild(trashCounter)
 
 main.addEventListener('touchstart', e => {
-	console.log('touch start')
+	console.log('touch start = add click event')
 
 	if (e.target.id == 'jokeItem') {
 		parentElement = e.target.parentElement
@@ -56,6 +56,7 @@ main.addEventListener('touchstart', e => {
 	}
 
 	function onDeleteItem() {
+		console.log('delete item event')
 		parentElement.classList.add('animate__fadeOutLeft')
 
 		const userObject = {
@@ -75,6 +76,10 @@ main.addEventListener('touchstart', e => {
 			parentElement.remove()
 		}, 500)
 	}
+
+	// parentElement
+	// 	.querySelector('.deleteItem')
+	// 	.addEventListener('click', onDeleteItem)
 
 	parentElement.querySelector('.deleteItem').onclick = onDeleteItem
 })
