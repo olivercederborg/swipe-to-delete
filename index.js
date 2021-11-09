@@ -53,33 +53,29 @@ main.addEventListener('touchstart', e => {
 				touchElement.style.transform = `translateX(${e.target.offsetLeft})`
 			}
 		})
+		parentElement.querySelector('.deleteItem').onclick = onDeleteItem
 	}
-
-	function onDeleteItem() {
-		console.log('delete item event')
-		parentElement.classList.add('animate__fadeOutLeft')
-
-		const userObject = {
-			id: parentElement.id,
-			name: parentElement.textContent
-		}
-
-		trash.push(userObject)
-		localStorage.setItem('deletedItems', JSON.stringify(trash))
-		trashCounter.textContent = trash.length
-
-		setTimeout(() => {
-			parentElement.classList.add('collapsed')
-		}, 400)
-
-		setTimeout(() => {
-			parentElement.remove()
-		}, 500)
-	}
-
-	// parentElement
-	// 	.querySelector('.deleteItem')
-	// 	.addEventListener('click', onDeleteItem)
-
-	parentElement.querySelector('.deleteItem').onclick = onDeleteItem
 })
+
+// functions
+function onDeleteItem() {
+	this.disabled = true
+	parentElement.classList.add('animate__fadeOutLeft')
+
+	const userObject = {
+		id: parentElement.id,
+		name: parentElement.textContent
+	}
+
+	trash.push(userObject)
+	localStorage.setItem('deletedItems', JSON.stringify(trash))
+	trashCounter.textContent = trash.length
+
+	setTimeout(() => {
+		parentElement.classList.add('collapsed')
+	}, 400)
+
+	setTimeout(() => {
+		parentElement.remove()
+	}, 500)
+}
