@@ -17,7 +17,7 @@ const generateId = () =>
 
 		main.appendChild(section)
 
-		const deleteItem = document.createElement('div')
+		const deleteItem = document.createElement('button')
 		deleteItem.classList.add('deleteItem')
 		deleteItem.setAttribute('id', 'deleteItem')
 
