@@ -78,6 +78,7 @@ function onRestoreItem() {
 	}
 
 	trash = trash.filter(item => userObject.id !== item.id)
+
 	localStorage.setItem('deletedItems', JSON.stringify(trash))
 
 	restoredItems.push(userObject)
@@ -98,7 +99,7 @@ function onRestoreItem() {
 
 function onDeleteAll() {
 	trash = []
-	localStorage.setItem('deletedItems', JSON.stringify(trash))
+	localStorage.removeItem('deletedItems')
 	allJokeItems.forEach(item => {
 		item.classList.add('animate__fadeOutLeft')
 		setTimeout(() => {
